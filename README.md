@@ -1,1 +1,3 @@
-# vagrant-java-web
+```
+vagrant up
+```
