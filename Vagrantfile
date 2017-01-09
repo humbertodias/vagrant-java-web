@@ -14,6 +14,10 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   # config.vm.box = "maier/alpine-3.4-x86_64"
   config.vm.box = "debian/jessie64"
+  # config.vm.box = "hongshunyang/alpine.regular.osx"
+  # config.vm.box = "dmcc/alpine-3.4.6-docker-1.12.3-kubernetes-v1.5.1"
+  # config.vm.box = "plorefice/alpine32"
+  # config.vm.box = "cxillo/tomcat-is"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -24,6 +28,12 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  config.vm.hostname = "tomcat9.dev"
+  config.vm.network "private_network", ip: "192.168.45.15"
+
+  config.vm.network "forwarded_port", guest: 8080, host: 8888
+  config.vm.network "forwarded_port", guest: 8443, host: 8889
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -70,5 +80,7 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
-  config.vm.provision "shell", path: "java8.sh"
+  # config.vm.provision "shell", path: "java8.sh"
+  config.vm.provision "shell", path:"provision-jdk.sh"
+  config.vm.provision "shell", path:"provision-tomcat9.sh"  
 end
